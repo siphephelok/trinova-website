@@ -1223,92 +1223,126 @@ footer p {
 }
 
 
+
 /* ================================
-   FAQ
+   FAQ SECTION
 ================================ */
 
 .faq-section {
     background: var(--black);
 }
 
-
 .faq-container {
     max-width: 900px;
 }
 
-
 .faq-item {
-    border-bottom:
-        1px solid #1C252E;
+    border-bottom: 1px solid #1C252E;
 }
 
 
+/* FAQ QUESTION */
+
 .faq-question {
     width: 100%;
-
     padding: 25px 0;
 
     background: transparent;
-
     border: none;
 
     color: var(--white);
 
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
 
     text-align: left;
 
+    font-family: inherit;
     font-size: 17px;
-
     font-weight: bold;
 
     cursor: pointer;
+
+    transition: color 0.3s ease;
+}
+
+.faq-question:hover {
+    color: var(--cyan);
 }
 
 
-.faq-question span {
+/* QUESTION TEXT */
+
+.faq-question span:first-child {
+    flex: 1;
+    padding-right: 20px;
+}
+
+
+/* PLUS ICON */
+
+.faq-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
     color: var(--cyan);
 
-    font-size: 25px;
+    font-size: 28px;
+    font-weight: normal;
+    line-height: 1;
 
-    transition: 0.3s;
+    flex-shrink: 0;
+
+    transition: transform 0.3s ease;
 }
 
+
+/* ANSWER */
 
 .faq-answer {
     max-height: 0;
 
     overflow: hidden;
 
+    opacity: 0;
+
     transition:
-        max-height 0.4s ease;
+        max-height 0.4s ease,
+        opacity 0.3s ease;
 }
 
+
+/* ANSWER TEXT */
 
 .faq-answer p {
     color: var(--grey);
 
-    padding-bottom: 25px;
-
     max-width: 750px;
+
+    padding: 0 0 25px 0;
+
+    line-height: 1.7;
 }
 
 
-.faq-item.open
-.faq-answer {
-    max-height: 200px;
+/* OPEN FAQ */
+
+.faq-item.open .faq-answer {
+    max-height: 1000px;
+    opacity: 1;
 }
 
 
-.faq-item.open
-.faq-question span {
+/* ROTATE PLUS TO X */
+
+.faq-item.open .faq-icon {
     transform: rotate(45deg);
 }
-
 
 /* ================================
    MOBILE CONTACT PAGE
@@ -1318,18 +1352,36 @@ footer p {
 
     .contact-grid {
         grid-template-columns: 1fr;
-
         gap: 50px;
     }
-
 
     .contact-form-wrapper {
         padding: 30px 20px;
     }
 
-
     .contact-hero {
         min-height: 450px;
+    }
+
+
+    /* FAQ */
+
+    .faq-question {
+        padding: 20px 0;
+        font-size: 16px;
+    }
+
+    .faq-question span:first-child {
+        padding-right: 15px;
+    }
+
+    .faq-icon {
+        font-size: 25px;
+    }
+
+    .faq-answer p {
+        font-size: 15px;
+        line-height: 1.6;
     }
 
 }
