@@ -1,8 +1,13 @@
+/* =========================================================
+   TRINOVA TECHNOLOGIES
+   PROJECTS PAGE JAVASCRIPT
+========================================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* ================================
+    /* =====================================================
        PROJECT FILTER
-    ================================= */
+    ===================================================== */
 
     const filterButtons =
         document.querySelectorAll(".filter-btn");
@@ -21,8 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const filter =
                 button.getAttribute("data-filter");
 
+            let visibleProjects = 0;
 
-            /* Active button */
+
+            /* Active filter button */
 
             filterButtons.forEach(btn => {
                 btn.classList.remove("active");
@@ -31,36 +38,41 @@ document.addEventListener("DOMContentLoaded", () => {
             button.classList.add("active");
 
 
-            /* Filter projects */
-
-            let visibleProjects = 0;
+            /* Filter project cards */
 
             projectCards.forEach(card => {
 
                 const category =
                     card.getAttribute("data-category");
 
-                if (filter === "all" || category === filter) {
+                if (
+                    filter === "all" ||
+                    category === filter
+                ) {
 
-                    card.style.display = "";
+                    card.classList.remove("hidden");
 
                     visibleProjects++;
 
                 } else {
 
-                    card.style.display = "none";
+                    card.classList.add("hidden");
 
                 }
 
             });
 
 
-            /* No results message */
+            /* Show / hide no-results message */
 
             if (visibleProjects === 0) {
-                noResults.style.display = "block";
+
+                noResults.classList.add("show");
+
             } else {
-                noResults.style.display = "none";
+
+                noResults.classList.remove("show");
+
             }
 
         });
@@ -68,9 +80,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* ================================
+
+    /* =====================================================
        PROJECT MODAL
-    ================================= */
+    ===================================================== */
 
     const modal =
         document.getElementById("projectModal");
@@ -91,7 +104,16 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".view-project");
 
 
-    /* Open modal */
+    /* Make sure modal exists */
+
+    if (!modal) {
+        return;
+    }
+
+
+    /* =====================================================
+       OPEN MODAL
+    ===================================================== */
 
     viewButtons.forEach(button => {
 
@@ -107,6 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 button.getAttribute("data-description");
 
 
+            /* Put project information into modal */
+
             modalTitle.textContent = title;
 
             modalCategory.textContent = category;
@@ -114,7 +138,11 @@ document.addEventListener("DOMContentLoaded", () => {
             modalDescription.textContent = description;
 
 
-            modal.classList.add("active");
+            /* Show modal */
+
+            modal.classList.add("show");
+
+            /* Prevent page scrolling while modal is open */
 
             document.body.style.overflow = "hidden";
 
@@ -123,41 +151,59 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    /* Close modal */
 
-    modalClose.addEventListener("click", () => {
+    /* =====================================================
+       CLOSE MODAL
+    ===================================================== */
 
-        modal.classList.remove("active");
+    function closeModal() {
+
+        modal.classList.remove("show");
 
         document.body.style.overflow = "";
 
-    });
+    }
 
 
-    /* Close when clicking outside modal */
+    /* Close using X */
+
+    if (modalClose) {
+
+        modalClose.addEventListener(
+            "click",
+            closeModal
+        );
+
+    }
+
+
+    /* =====================================================
+       CLOSE WHEN CLICKING OUTSIDE
+    ===================================================== */
 
     modal.addEventListener("click", event => {
 
         if (event.target === modal) {
 
-            modal.classList.remove("active");
-
-            document.body.style.overflow = "";
+            closeModal();
 
         }
 
     });
 
 
-    /* Close with ESC key */
+    /* =====================================================
+       CLOSE USING ESCAPE
+    ===================================================== */
 
     document.addEventListener("keydown", event => {
 
-        if (event.key === "Escape") {
+        if (
+            event.key === "Escape" &&
+            modal.classList.contains("show")
+        ) {
 
-            modal.classList.remove("active");
-
-            document.body.style.overflow = "";
+            closeModal();
 
         }
 
